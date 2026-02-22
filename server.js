@@ -1,38 +1,32 @@
 const express = require("express");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 require("dotenv").config();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public")); // put index.html inside public folder
+app.use(express.static("public"));
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post("/contact", async (req, res) => {
-    const { name, email, message } = req.body;
+  const { name, email, message } = req.body;
 
-    try {
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
+  try {
+    await resend.emails.send({
+      from: "onboarding@resend.dev",   // temporary sender
+      to: "yourgmail@gmail.com",       // replace with your email
+      subject: `New message from ${name}`,
+      text: `From: ${email}\n\n${message}`
+    });
 
-        await transporter.sendMail({
-            from: email,
-            to: process.env.EMAIL_USER,
-            subject: `New message from ${name}`,
-            text: message
-        });
-
-        res.send("Message sent successfully!");
-    } catch (error) {
-        console.error(error);
-        res.send("Error sending message.");
-    }
+    res.send("Message sent successfully!");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error sending message.");
+  }
 });
-const PORT = process.env.PORT || 3000;
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
