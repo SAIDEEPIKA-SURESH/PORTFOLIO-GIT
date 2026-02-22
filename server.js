@@ -14,7 +14,7 @@ app.post("/contact", async (req, res) => {
   try {
     await resend.emails.send({
       from: "onboarding@resend.dev",   // temporary sender
-      to: "yourgmail@gmail.com",       // replace with your email
+      to: "saideepikasuresh2005@gmail.com",       // replace with your email
       subject: `New message from ${name}`,
       text: `From: ${email}\n\n${message}`
     });
