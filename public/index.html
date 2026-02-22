@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saideepika Suresh · full‑stack portfolio</title>
+    <!-- Google Font & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e7e3d4;  /* warm cream background */
+            font-family: 'Inter', sans-serif;
+            color: #2c3e2f;
+            padding: 2rem 1.8rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* main outer — soft earthy card */
+        .portfolio {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 250, 240, 0.8);  /* floral white with transparency */
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 48px;
+            box-shadow: 0 40px 70px -30px #2f4d3a, 0 0 0 1px rgba(120, 100, 70, 0.2) inset;
+            padding: 2.5rem 2.8rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        /* ===== NAME & PHOTO AREA (flex with photo space) ===== */
+        .name-photo-bar {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .photo-frame {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #768948, #5a6d3b);  /* olive hint */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 25px -10px #2b4d2b;
+            border: 3px solid #efe7d6;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.02) rotate(2deg);
+            box-shadow: 0 20px 30px -8px #1f3b1f;
+        }
+
+        .name-badge-group {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            background: rgba(220, 210, 190, 0.4);
+            border-radius: 100px;
+            padding: 0.6rem 2rem 0.6rem 2.2rem;
+            border: 1px solid #dad3c0;
+            backdrop-filter: blur(4px);
+        }
+
+        .name-badge-group h1 {
+            font-size: 2.6rem;
+            font-weight: 620;
+            letter-spacing: -0.02em;
+            color: #2c4b34;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .name-badge-group h1 span.small {
+            font-weight: 400;
+            color: #5b7f5b;
+            font-size: 1.4rem;
+            margin-left: 0.5rem;
+        }
+
+        .badge-set {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .pill {
+            background: #d9d0b5;
+            border-radius: 60px;
+            padding: 0.3rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2e4a37;
+            border: 1px solid #b5a482;
+            box-shadow: inset 0 1px 5px #fff9e8;
+            white-space: nowrap;
+        }
+
+        .pill i {
+            margin-right: 6px;
+            color: #556b2f;
+        }
+
+        /* ===== TOP CONTACT STRIP ===== */
+        .contact-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            align-items: center;
+            background: #f3efe2;
+            border-radius: 70px;
+            padding: 0.9rem 2.2rem;
+            margin-bottom: 2.8rem;
+            border: 1px solid #ccbca0;
+            font-size: 0.98rem;
+            box-shadow: 0 4px 8px rgba(80, 70, 40, 0.1);
+        }
+
+        .contact-strip a {
+            text-decoration: none;
+            color: #3b5e3b;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1.5px solid transparent;
+            transition: 0.2s;
+        }
+
+        .contact-strip a i {
+            color: #768948;
+            width: 1.2rem;
+        }
+
+        .contact-strip a:hover {
+            border-bottom-color: #768948;
+            color: #234d23;
+        }
+
+        .embed-hint {
+            margin-left: auto;
+            background: #dacbb4;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #2f4b2f;
+            border: 1px dashed #768948;
+        }
+
+        /* ===== MAIN 2-COLUMN LAYOUT (left main / right reachout) ===== */
+        .main-panel {
+            display: grid;
+            grid-template-columns: 2.2fr 1.2fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* left column — all details */
+        .details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        /* universal card style — warm white */
+        .card {
+            background: #fefcf5;
+            border-radius: 36px;
+            padding: 1.8rem 2rem;
+            border: 1px solid #ece1cd;
+            box-shadow: 0 15px 28px -18px #3f553f, 0 2px 4px rgba(90, 70, 40, 0.05);
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* scroll animation classes (will be toggled via JS) */
+        .card.reveal, .proj-mini.reveal, .reachout-box.reveal, .contact-strip.reveal {
+            animation: fadeSlide 0.8s cubic-bezier(0.2, 0.9, 0.1, 1) forwards;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0.3; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 590;
+            font-size: 1.1rem;
+            letter-spacing: 0.01em;
+            color: #3d653d;
+            margin-bottom: 1.4rem;
+            border-bottom: 2px solid #dbcbb4;
+            padding-bottom: 0.5rem;
+        }
+
+        .card-title i {
+            color: #768948;
+            font-size: 1.2rem;
+        }
+
+        /* education rows */
+        .edu-item {
+            margin-bottom: 1.3rem;
+        }
+        .edu-line {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .edu-institution {
+            font-weight: 630;
+            color: #2b4b2b;
+        }
+        .edu-gpa {
+            background: #e5dfce;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            color: #3b623b;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .edu-desc {
+            color: #4e7250;
+            font-size: 0.96rem;
+            margin-top: 0.2rem;
+        }
+
+        /* skill compact */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 2rem;
+            margin: 0.5rem 0 1rem;
+        }
+        .skill-block .skill-head {
+            font-weight: 660;
+            color: #2b5935;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+        .skill-items {
+            color: #4a6d4a;
+        }
+
+        .soft-lang {
+            background: #f3ecdb;
+            border-radius: 28px;
+            padding: 1.3rem 1.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .soft-lang div .slabel {
+            font-weight: 650;
+            color: #2d543d;
+            font-size: 0.8rem;
+            letter-spacing: 0.02em;
+        }
+
+        .intern-item {
+            margin-bottom: 1.1rem;
+        }
+        .intern-item strong {
+            color: #2b5635;
+        }
+        .date-badge {
+            background: #e2d9c4;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-left: 0.8rem;
+            color: #3f643f;
+        }
+
+        .cert-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #ccbb9e;
+        }
+        .cert-percent {
+            background: #dad0b7;
+            border-radius: 30px;
+            padding: 0.15rem 1rem;
+            font-size: 0.8rem;
+            color: #2f542f;
+        }
+
+        .achievement-bullet {
+            display: flex;
+            gap: 0.7rem;
+            margin-bottom: 1rem;
+        }
+        .achievement-bullet i {
+            color: #768948;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+        }
+
+        /* projects row */
+        .projects-row {
+            margin-top: 1.2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .proj-mini {
+            background: #fcf8ef;
+            border-radius: 30px;
+            padding: 1.8rem 1.8rem;
+            box-shadow: 0 15px 24px -18px #395539;
+            border: 1px solid #e5d7bd;
+            transition: all 0.3s ease;
+            opacity: 1;
+        }
+
+        .proj-mini:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 30px -12px #2f4d2f;
+            background: #fffdf5;
+        }
+
+        .proj-mini h4 {
+            font-weight: 670;
+            font-size: 1.3rem;
+            color: #2a552a;
+        }
+        .proj-stack {
+            background: #dacfba;
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            margin: 0.5rem 0 0.8rem;
+            color: #295229;
+            font-weight: 500;
+        }
+        .proj-desc {
+            color: #446644;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .proj-links a {
+            text-decoration: none;
+            color: #3d6b3d;
+            margin-right: 1.4rem;
+            font-size: 0.9rem;
+            border-bottom: 1px dotted #9bb079;
+        }
+
+        /* ===== RIGHT PANEL — REACH OUT with proper form ===== */
+        .reachout-box {
+            background: linear-gradient(135deg, #fcf8ed, #f5efdf);
+            border-radius: 42px;
+            padding: 2rem 1.8rem;
+            border: 1px solid #d6c8ae;
+            box-shadow: 0 30px 35px -25px #436443, 0 4px 0 0 #f0e4cf inset;
+            height: fit-content;
+            transition: all 0.3s ease;
+        }
+
+        .reachout-box .card-title {
+            margin-bottom: 1.8rem;
+            color: #2e5a2e;
+        }
+
+        /* the form now has action, method, and named inputs */
+        .msg-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 530;
+            color: #3d643d;
+            margin-left: 0.5rem;
+        }
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 25%;
+    object-fit: cover;
+}
+        .form-group input,
+        .form-group textarea {
+            background: #fffcf2;
+            border: 1.5px solid #c9bc9f;
+            border-radius: 30px;
+            padding: 0.8rem 1.4rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: 0.15s;
+            outline: none;
+            box-shadow: inset 0 2px 5px #f1e4d2;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #768948;
+            box-shadow: 0 0 0 3px rgba(118, 137, 72, 0.2);
+        }
+
+        .form-group textarea {
+            border-radius: 28px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .send-btn {
+            background: #607d4b;
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.9rem 1.5rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid #768948;
+            box-shadow: 0 6px 14px -10px #2c4d2c;
+            margin-top: 0.5rem;
+        }
+
+        .send-btn:hover {
+            background: #4f6d3a;
+            transform: scale(1.02);
+        }
+
+        .footer-note {
+            margin-top: 2.8rem;
+            display: flex;
+            justify-content: space-between;
+            color: #6c8265;
+            border-top: 1px solid #ccbb9e;
+            padding-top: 1.8rem;
+            font-size: 0.9rem;
+        }
+        .skill-items {
+    list-style: none;
+    padding-left: 0;
+}
+
+.skill-items li::before {
+    content: "▹ ";
+    color: #4f734f;
+    margin-right: 5px;
+}
+
+        /* responsive */
+        @media (max-width: 1000px) {
+            .main-panel { grid-template-columns: 1fr; }
+            .name-photo-bar { flex-direction: column; align-items: flex-start; }
+            .name-badge-group h1 { white-space: normal; }
+        }
+        @media (max-width: 550px) {
+            .portfolio { padding: 1.5rem; }
+            .contact-strip { flex-direction: column; align-items: start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="portfolio">
+        <!-- NAME & PHOTO together (photo space added) -->
+        <div class="name-photo-bar">
+            <div class="photo-frame">
+               <img src="WhatsApp Image 2025-01-30 at 07.08.56_3d5f4173.jpg" alt="Profile Photo" class="profile-pic">
+            </div>
+            <div class="name-badge-group">
+                <h1>Saideepika Suresh <span class="small">B.E CSE</span></h1>
+                <div class="badge-set">
+                    <span class="pill"><i class="fas fa-map-pin"></i> Chennai</span>
+                    <span class="pill"><i class="fas fa-code"></i> open to work</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT STRIP with updated links -->
+        <div class="contact-strip">
+            <a href="#"><i class="fas fa-phone-alt"></i> +91 9498378260</a>
+            <a href="mailto:saideepikasuresh2005@gmail.com?subject=Hello&body=I%20wanted%20to%20connect%20with%20you"><i class="far fa-envelope"></i> saideepikasuresh2005@gmail.com</a>
+            <a href="https://github.com/SAIDEEPIKA-SURESH" target="_blank"><i class="fab fa-github"></i> github</a>
+            <a href="https://www.linkedin.com/in/saideepikasuresh/" target="_blank"><i class="fab fa-linkedin"></i> linkedin</a>
+        </div>
+
+        <!-- MAIN two columns -->
+        <div class="main-panel">
+            <!-- LEFT COLUMN (all details) -->
+            <div class="details">
+                <!-- EDUCATION card -->
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-graduation-cap"></i> EDUCATION</div>
+                    <div class="edu-item">
+                        <div class="edu-line">
+                            <span class="edu-institution">R.M.K Engineering College</span>
+                            <span class="edu-gpa">CGPA 8.93</span>
+                        </div>
+                        <div class="edu-desc">B.E Computer Science and Engineering · 2023 – 2027</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="edu-line">
+                            <span class="edu-institution">Shri Krishnaswamy MHSS</span>
+                            <span class="edu-gpa">96%</span>
+                        </div>
+                        <div class="edu-desc">Higher Secondary Education · completed 2023</div>
+                    </div>
+                </div>
+
+                <!-- TECH SKILLS card -->
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-microchip"></i> TECHNICAL SKILLS</div>
+                    <div class="skill-grid">
+                        <div class="skill-block">
+    <div class="skill-head"><b>AREAS OF INTEREST</b></div>
+    <ul class="skill-items">
+        <li>OOP</li>
+        <li>DSA</li>
+        <li>RDBMS (MySQL)</li>
+    </ul>
+</div>
+
+<div class="skill-block">
+    <div class="skill-head"><b>PROGRAMMING</b></div>
+    <ul class="skill-items">
+        <li>Java (Intermediate)</li>
+        <li>C (Basic)</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript (Basic)</li>
+    </ul>
+</div>
+
+<div class="skill-block">
+    <div class="skill-head"><b>VERSION CONTROL</b></div>
+    <ul class="skill-items">
+        <li>Git</li>
+        <li>GitHub</li>
+    </ul>
+</div>
+
+<div class="skill-block">
+    <div class="skill-head"><b>FRAMEWORKS</b></div>
+    <ul class="skill-items">
+        <li>Spring Boot</li>
+        <li>JPA</li>
+    </ul>
+</div>
+                    </div>
+                    <div class="soft-lang">
+
+    <div class="skill-block">
+        <div class="skill-head"><b>SOFT SKILLS</b></div>
+        <ul class="skill-items">
+            <li>Team Leadership</li>
+            <li>Accountability</li>
+            <li>Articulate Communication</li>
+            <li>Adaptability</li>
+            <li>Decision Making</li>
+            <li>Time Management</li>
+        </ul>
+    </div>
+
+    <div class="skill-block">
+        <div class="skill-head"><b>LANGUAGES</b></div>
+        <ul class="skill-items">
+            <li>Tamil (Native)</li>
+            <li>English (Working)</li>
+            <li>Japanese (Elementary)</li>
+        </ul>
+    </div>
+
+</div>
+                </div>
+
+                <!-- INTERNSHIPS + CERTIFICATIONS + ACHIEVEMENTS -->
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-briefcase"></i> INTERNSHIPS</div>
+                    <div class="intern-item"><strong>RMKEC AICTE IDEA LAB INTERNSHIP</strong> <span class="date-badge">07/03/2024 – 07/06/2024</span></div>
+                    <div class="intern-item"><strong>ITSS INDIA PRIVATE LIMITED</strong> <span class="date-badge">30/06/2025 – 11/07/2025</span></div>
+                    <div class="intern-item"><strong>INFOSYS SPRINGBOARD VIRTUAL INTERNSHIP ( JAVA )</strong> <span class="date-badge">25/11/2025 – 12/02/2026</span></div>
+
+                    <div class="card-title" style="margin-top: 1.8rem;"><i class="fas fa-certificate"></i> CERTIFICATIONS</div>
+                    <div class="cert-row"><span>NPTEL Joy of Computing using Python (2024)</span> <span class="cert-percent">77%</span></div>
+                    <div class="cert-row"><span>NPTEL Introduction to IoT (2025)</span> <span class="cert-percent">93%</span></div>
+                    <div class="cert-row"><span>Infosys Springboard Front End Web Developer (2025)</span> </div>
+                    <div class="cert-row"><span>Infosys Springboard Machine Learning Foundation (2025)</span> </div>
+
+                    <div class="card-title" style="margin-top: 1.8rem;"><i class="fas fa-trophy"></i> ACHIEVEMENTS</div>
+                    <div class="achievement-bullet"><i class="fas fa-chevron-right"></i> Selected for Level 2 among 63 participants in TN Skills Competition (2025)</div>
+                    <div class="achievement-bullet"><i class="fas fa-chevron-right"></i> Shortlisted for SIH Internal Hackathon 2025 among 204 teams (Software)</div>
+                    <div class="achievement-bullet"><i class="fas fa-chevron-right"></i> Published paper "HORIZON EYES: Smart Mobile Technology for Visually Impaired" — IEEE ICoICl 2025</div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN - REACH OUT (now with real form action and method) -->
+            <div class="reachout-box">
+                <div class="card-title"><i class="fas fa-paper-plane"></i> REACH OUT</div>
+                <form action="/contact" method="POST" class="msg-form">
+                    <div class="form-group">
+                        <label><i class="far fa-user"></i> Name</label>
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="far fa-envelope"></i> Email</label>
+                        <input type="email" name="email" placeholder="mail - id" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="far fa-comment"></i> Message</label>
+                        <textarea name="message" placeholder="Collaboration / opportunity ..." required></textarea>
+                    </div>
+                    <button type="submit" class="send-btn"><i class="fas fa-paper-plane"></i> Send message</button>
+                </form>
+                <p style="margin-top: 1rem; font-size: 0.8rem; color: #4f734f; text-align: center;">
+                </p>
+            </div>
+        </div>
+
+        <!-- PROJECT SECTION full width -->
+        <div style="margin-top: 2rem;">
+            <div class="card-title" style="margin-bottom: 1rem;"><i class="fas fa-laptop-code"></i> PROJECTS</div>
+            <div class="projects-row">
+                <!-- InsurAI -->
+                <div class="proj-mini">
+                    <h4>InsurAI</h4>
+                    <div class="proj-stack">React, MySQL, SpringBoot, Supabase</div>
+                    <div class="proj-desc">Enterprise insurance automation – claims, compliance, analytics. Web-based platform to automate corporate policy management, eliminating manual HR processes.</div>
+                    <div class="proj-links">
+                        <a href="https://github.com/InsurAI/InsurAI-Corporate-Policy-Management" target="_blank"><i class="fab fa-github"></i> click here</a>
+                        <a href="https://insurai-corporate-policy-2.onrender.com/" target="_blank"><i class="fas fa-external-link"></i> demo</a>
+                    </div>
+                </div>
+                <!-- Student Management -->
+                <div class="proj-mini">
+                    <h4>Student Management</h4>
+                    <div class="proj-stack">React, H2 database, SpringBoot, JWT</div>
+                    <div class="proj-desc">Role‑based system, CSV, PDF transcripts, REST APIs. Built with Spring Boot, MyBatis Plus, React, supporting Admin/Staff/Student.</div>
+                    <div class="proj-links">
+                        <a href="https://github.com/SAIDEEPIKA-SURESH/Student-management-system" target="_blank"><i class="fab fa-github"></i> click here</a>
+                    </div>
+                </div>
+                <!-- HORIZON EYES -->
+                <div class="proj-mini">
+                    <h4>HORIZON EYES</h4>
+                    <div class="proj-stack">Python, OpenCV, TFLite, YOLO, Gemini API</div>
+                    <div class="proj-desc">AI assistive app: voice navigation, obstacle & currency detection. Optimized for offline, on‑device AI.</div>
+                    <div class="proj-links"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-note">
+            <span><i class="far fa-copyright"></i> Saideepika Suresh · 2025</span>
+        </div>
+    </div>
+
+    <!-- Scroll & touch animation script (no changes, but alert on # links) -->
+    <script>
+        (function() {
+            const animatedElements = document.querySelectorAll('.card, .proj-mini, .reachout-box, .contact-strip');
+            
+            window.addEventListener('load', () => {
+                animatedElements.forEach(el => el.classList.add('reveal'));
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                    }
+                });
+            }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+
+            animatedElements.forEach(el => observer.observe(el));
+
+            // handle # links (phone, globe)
+            const links = document.querySelectorAll('a[href="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('🔗 Please insert your actual profile URL.');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
